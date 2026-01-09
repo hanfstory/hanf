@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="bild.png" />
-  <title>Hanf & Cannabis – PDF</title>
+  <title>Hanf & Cannabis – Audio</title>
   <style>
     body {
       margin: 0;
@@ -13,100 +12,83 @@
       color: #ffffff;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
     }
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-    h1 {
-      margin: 0 0 8px 0;
-      font-size: 2rem;
-    }
-    .subtitle {
-      opacity: 0.9;
-      font-size: 1rem;
-    }
-    .pdf-container {
+
+    .card {
       background: rgba(0, 0, 0, 0.35);
       backdrop-filter: blur(10px);
       border-radius: 20px;
-      padding: 24px;
+      padding: 32px;
+      max-width: 420px;
+      width: 90%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      width: 100%;
-      max-width: 900px;
-      height: 80vh;
-      display: flex;
-      flex-direction: column;
-    }
-    iframe {
-      width: 100%;
-      flex: 1;
-      border: none;
-      border-radius: 12px;
-      background: white;
-    }
-    .error {
-      padding: 20px;
-      border-radius: 12px;
-      background: rgba(255, 0, 0, 0.2);
       text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    audio {
+      width: 100%;
+      outline: none;
+      border-radius: 12px;
+    }
+
+    .error {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255, 0, 0, 0.2);
+      font-size: 0.9rem;
       display: none;
     }
-    .download-btn {
-      margin-top: 16px;
-      padding: 12px 24px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 10px;
-      color: white;
-      text-decoration: none;
-      display: inline-block;
-      transition: all 0.3s;
-      font-weight: 500;
-    }
-    .download-btn:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: translateY(-2px);
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      opacity: 0.7;
     }
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="card">
     <h1>Hanf & Cannabis</h1>
-    <div class="subtitle">PDF-Dokument</div>
-  </div>
-  
-  <div class="pdf-container">
-    <iframe id="pdf-viewer" src="geschichte.pdf" type="application/pdf"></iframe>
+    <p>Audio-Geschichte zum Anhören</p>
+
+    <audio id="player" controls preload="metadata">
+      <source src="geschichte.mp3" type="audio/mpeg" />
+      Dein Browser unterstützt den Audio‑Player leider nicht.
+    </audio>
+
     <div id="error" class="error">
-      ⚠️ Die Datei <strong>geschichte.pdf</strong> konnte nicht geladen werden.<br />
-      Stelle sicher, dass sie im gleichen Ordner liegt.
-      <br />
-      <a href="geschichte.pdf" class="download-btn" download>PDF herunterladen</a>
+      ⚠️ Die Datei <strong>geschichte.mp3</strong> wurde nicht gefunden.<br />
+      Bitte stelle sicher, dass sie im gleichen Ordner liegt und exakt so heißt (Groß-/Kleinschreibung beachten).
+    </div>
+
+    <div class="footer">
+      Diese Seite dient nur zum Anhören der Audiodatei.
     </div>
   </div>
 
   <script>
-    const iframe = document.getElementById('pdf-viewer');
+    const audio = document.getElementById('player');
     const errorBox = document.getElementById('error');
-    
-    iframe.addEventListener('error', () => {
-      iframe.style.display = 'none';
+
+    audio.addEventListener('error', () => {
       errorBox.style.display = 'block';
     });
-
-    // Check if PDF loaded after a delay
-    setTimeout(() => {
-      if (!iframe.contentWindow || iframe.contentWindow.length === 0) {
-        iframe.style.display = 'none';
-        errorBox.style.display = 'block';
-      }
-    }, 2000);
   </script>
 </body>
 </html>
